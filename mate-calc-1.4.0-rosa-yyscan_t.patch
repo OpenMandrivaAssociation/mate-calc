@@ -1,0 +1,83 @@
+Index: mate-calc-1.4.0/src/mp-equation-parser.y
+===================================================================
+--- mate-calc-1.4.0.orig/src/mp-equation-parser.y
++++ mate-calc-1.4.0/src/mp-equation-parser.y
+@@ -32,14 +32,14 @@
+ // treat exp NAME exp as a function always and pass both arguments, i.e.
+ // can do mod using both and all others use $1 * NAME($3)
+ 
+-static void set_error(yyscan_t yyscanner, int error, const char *token)
++static void set_error(void* yyscanner, int error, const char *token)
+ {
+     _mp_equation_get_extra(yyscanner)->error = error;
+     if (token)
+         _mp_equation_get_extra(yyscanner)->error_token = strdup(token);
+ }
+ 
+-static void set_result(yyscan_t yyscanner, const MPNumber *x)
++static void set_result(void* yyscanner, const MPNumber *x)
+ {
+     mp_set_from_mp(x, &(_mp_equation_get_extra(yyscanner))->ret);
+ }
+@@ -53,7 +53,7 @@ utf8_next_char (const char *c)
+     return (char *)c;
+ }
+ 
+-static int get_variable(yyscan_t yyscanner, const char *name, int power, MPNumber *z)
++static int get_variable(void* yyscanner, const char *name, int power, MPNumber *z)
+ {
+     int result = 0;
+ 
+@@ -100,12 +100,12 @@ static int get_variable(yyscan_t yyscann
+     return result;
+ }
+ 
+-static void set_variable(yyscan_t yyscanner, const char *name, MPNumber *x)
++static void set_variable(void* yyscanner, const char *name, MPNumber *x)
+ {
+     _mp_equation_get_extra(yyscanner)->set_variable(_mp_equation_get_extra(yyscanner), name, x);
+ }
+ 
+-static int get_function(yyscan_t yyscanner, const char *name, const MPNumber *x, MPNumber *z)
++static int get_function(void* yyscanner, const char *name, const MPNumber *x, MPNumber *z)
+ {
+     if (!_mp_equation_get_extra(yyscanner)->get_function(_mp_equation_get_extra(yyscanner), name, x, z)) {
+         set_error(yyscanner, PARSER_ERR_UNKNOWN_FUNCTION, name);
+@@ -114,7 +114,7 @@ static int get_function(yyscan_t yyscann
+     return 1;
+ }
+ 
+-static int get_inverse_function(yyscan_t yyscanner, const char *name, const MPNumber *x, MPNumber *z)
++static int get_inverse_function(void* yyscanner, const char *name, const MPNumber *x, MPNumber *z)
+ {
+     char *inv_name;
+     int result;
+@@ -128,7 +128,7 @@ static int get_inverse_function(yyscan_t
+     return result;
+ }
+ 
+-static void do_not(yyscan_t yyscanner, const MPNumber *x, MPNumber *z)
++static void do_not(void* yyscanner, const MPNumber *x, MPNumber *z)
+ {
+     if (!mp_is_overflow(x, _mp_equation_get_extra(yyscanner)->options->wordlen)) {
+         set_error(yyscanner, PARSER_ERR_OVERFLOW, NULL);
+@@ -157,7 +157,7 @@ static char *make_unit(const char *name,
+     return name2;
+ }
+ 
+-static void do_conversion(yyscan_t yyscanner, const MPNumber *x, const char *x_units, const char *z_units, MPNumber *z)
++static void do_conversion(void* yyscanner, const MPNumber *x, const char *x_units, const char *z_units, MPNumber *z)
+ {
+     if (!_mp_equation_get_extra(yyscanner)->convert(_mp_equation_get_extra(yyscanner), x, x_units, z_units, z))
+         set_error(yyscanner, PARSER_ERR_UNKNOWN_CONVERSION, NULL);
+@@ -168,8 +168,8 @@ static void do_conversion(yyscan_t yysca
+ %pure-parser
+ %name-prefix="_mp_equation_"
+ %locations
+-%parse-param {yyscan_t yyscanner}
+-%lex-param {yyscan_t yyscanner}
++%parse-param {void* yyscanner}
++%lex-param {void* yyscanner}
+ 
+ %union {
+   MPNumber int_t;
