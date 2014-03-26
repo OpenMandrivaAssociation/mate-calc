@@ -1,20 +1,22 @@
+%define url_ver %(echo %{version}|cut -d. -f1,2)
+
 Summary:	MATE desktop calculator
 Name:		mate-calc
-Version:	1.4.0
+Version:	1.8.0
 Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/GNOME
-URL:		http://mate-desktop.org
-Source0:	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
-Patch0:		mate-calc-1.4.0-rosa-yyscan_t.patch
+Url:		http://mate-desktop.org
+Source0:	http://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
+#Patch0:		mate-calc-1.4.0-rosa-yyscan_t.patch
 
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	intltool
+BuildRequires:	itstool
 BuildRequires:	mate-common
-BuildRequires:	xsltproc
+BuildRequires:	yelp-tools
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(mate-doc-utils)
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 
@@ -26,9 +28,9 @@ precision arithmetic to produce results to a high degree of accuracy.
 %prep
 %setup -q
 %apply_patches
+NOCONFIGURE=yes ./autogen.sh
 
 %build
-NOCONFIGURE=yes ./autogen.sh
 %configure2_5x \
 	--with-gtk=2.0
 
@@ -38,22 +40,13 @@ NOCONFIGURE=yes ./autogen.sh
 %makeinstall_std
 desktop-file-edit --remove-category=MATE --add-category=X-MATE %{buildroot}%{_datadir}/applications/mate-calc.desktop
 
-%find_lang %{name} --with-gnome
+%find_lang %{name} --with-gnome --all-name
 
 %files -f %{name}.lang
 %doc README NEWS AUTHORS 
 %{_bindir}/*
 %{_datadir}/applications/*
 %{_datadir}/%{name}
-%{_datadir}/glib-2.0/schemas/org.mate.mate-calc.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.mate.calc.gschema.xml
 %{_mandir}/man1/*
-# mate help file
-%{_datadir}/mate/help
-
-
-
-%changelog
-* Tue Jun 05 2012 Matthew Dawkins <mattydaw@mandriva.org> 1.2.0-1
-+ Revision: 802502
-- imported package mate-calc
 
