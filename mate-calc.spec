@@ -13,7 +13,6 @@ Source0:	http://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	intltool
-BuildRequires:	itstool
 BuildRequires:	mate-common
 BuildRequires:	yelp-tools
 BuildRequires:	pkgconfig(glib-2.0)
