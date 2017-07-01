@@ -15,7 +15,7 @@ BuildRequires:	intltool
 BuildRequires:	mate-common
 BuildRequires:	yelp-tools
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 
 %description
