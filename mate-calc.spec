@@ -2,14 +2,13 @@
 
 Summary:	MATE desktop calculator
 Name:		mate-calc
-Version:	1.8.0
-Release:	2
+Version:	1.18.0
+Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://mate-desktop.org
 Source0:	http://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
 #Patch0:		mate-calc-1.4.0-rosa-yyscan_t.patch
-
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	intltool
@@ -27,18 +26,22 @@ precision arithmetic to produce results to a high degree of accuracy.
 %prep
 %setup -q
 %apply_patches
-NOCONFIGURE=yes ./autogen.sh
 
 %build
-%configure2_5x \
-	--with-gtk=2.0
-
+#NOCONFIGURE=yes ./autogen.sh
+%configure
 %make
 
 %install
 %makeinstall_std
-desktop-file-edit --remove-category=MATE --add-category=X-MATE %{buildroot}%{_datadir}/applications/mate-calc.desktop
 
+# .desktop
+desktop-file-edit \
+	--remove-category=MATE \
+	--add-category=X-MATE \
+	%{buildroot}%{_datadir}/applications/mate-calc.desktop
+
+# locales
 %find_lang %{name} --with-gnome --all-name
 
 %files -f %{name}.lang
@@ -47,5 +50,6 @@ desktop-file-edit --remove-category=MATE --add-category=X-MATE %{buildroot}%{_da
 %{_datadir}/applications/*
 %{_datadir}/%{name}
 %{_datadir}/glib-2.0/schemas/org.mate.calc.gschema.xml
+%{_datadir}/appdata/%{name}.appdata.xml
 %{_mandir}/man1/*
 
