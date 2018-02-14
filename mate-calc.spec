@@ -3,7 +3,7 @@
 Summary:	MATE desktop calculator
 Name:		mate-calc
 Version:	1.8.0
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Graphical desktop/GNOME
 Url:		http://mate-desktop.org
@@ -16,7 +16,7 @@ BuildRequires:	intltool
 BuildRequires:	mate-common
 BuildRequires:	yelp-tools
 BuildRequires:	pkgconfig(glib-2.0)
-BuildRequires:	pkgconfig(gtk+-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 
 %description
@@ -30,8 +30,10 @@ precision arithmetic to produce results to a high degree of accuracy.
 NOCONFIGURE=yes ./autogen.sh
 
 %build
+export CC=gcc
+export CXX=g++
 %configure2_5x \
-	--with-gtk=2.0
+	--with-gtk=3.0
 
 %make
 
