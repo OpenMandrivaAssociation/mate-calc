@@ -1,4 +1,5 @@
 removed_sources:
+  mate-calc-1.18.0.tar.xz: f9f74e5b65c5828249af2ec264099e06ba678209
   mate-calc-1.8.0.tar.xz: d63156db75d8110f0cabf82a12c74c5b9836f327
 sources:
-  mate-calc-1.18.0.tar.xz: f9f74e5b65c5828249af2ec264099e06ba678209
+  mate-calc-1.18.1.tar.xz: 2da475cfeb26c1f7b2547d976bc38775173e3d14
