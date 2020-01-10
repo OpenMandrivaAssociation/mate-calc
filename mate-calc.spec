@@ -47,7 +47,7 @@ produce results to a high degree of accuracy.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 %build
 #NOCONFIGURE=yes ./autogen.sh
