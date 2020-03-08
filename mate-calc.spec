@@ -8,7 +8,6 @@ License:	GPLv2+
 Group:		Graphical desktop/Other
 Url:		https://mate-desktop.org
 Source0:	https://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
-#Patch0:	mate-calc-1.4.0-rosa-yyscan_t.patch
 
 BuildRequires:	autoconf-archive
 BuildRequires:	bison
@@ -38,8 +37,6 @@ produce results to a high degree of accuracy.
 %doc README NEWS AUTHORS
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
-%dir %{_datadir}/%{name}/
-%{_datadir}/%{name}/*
 %{_datadir}/glib-2.0/schemas/org.mate.calc.gschema.xml
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_mandir}/man1/*
@@ -55,10 +52,10 @@ produce results to a high degree of accuracy.
 %configure \
 	 --disable-schemas-compile \
 	 %{nil}
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 # .desktop
 desktop-file-edit \
