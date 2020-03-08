@@ -2,7 +2,7 @@
 
 Summary:	MATE desktop calculator
 Name:		mate-calc
-Version:	1.22.2
+Version:	1.24.0
 Release:	1
 License:	GPLv2+
 Group:		Graphical desktop/Other
@@ -10,6 +10,7 @@ Url:		https://mate-desktop.org
 Source0:	https://pub.mate-desktop.org/releases/%{url_ver}/%{name}-%{version}.tar.xz
 #Patch0:	mate-calc-1.4.0-rosa-yyscan_t.patch
 
+BuildRequires:	autoconf-archive
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	intltool
