@@ -20,6 +20,7 @@ BuildRequires:	pkgconfig(gobject-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(mpfr)
+BuildRequires:	pkgconfig(gmp)
 BuildRequires:	libmpc-devel
 BuildRequires:	yelp-tools
 
