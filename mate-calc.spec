@@ -37,7 +37,7 @@ Scientific modes. Internally it uses multiple precision arithmetic to
 produce results to a high degree of accuracy.
 
 %files -f %{name}.lang
-%doc README NEWS AUTHORS
+%doc README* NEWS AUTHORS
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/glib-2.0/schemas/org.mate.calc.gschema.xml
