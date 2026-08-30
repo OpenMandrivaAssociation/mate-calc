@@ -55,9 +55,14 @@ produce results to a high degree of accuracy.
 
 %build
 #NOCONFIGURE=yes ./autogen.sh
-%configure \
-	 --disable-schemas-compile \
-	 %{nil}
+# (Angry P) Out of tree build, so we need to call ./configure directly. Additionally, force Clang.
+# this fixing: make[1]: *** No rule to make target '/config.status', needed by 'Makefile'.  Stop.
+export CC=clang
+export CXX=clang++
+./configure \
+    --prefix=%{_prefix} \
+    --libdir=%{_libdir} \
+	--disable-schemas-compile
 %make_build
 
 %install
